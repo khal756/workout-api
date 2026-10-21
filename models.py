@@ -15,8 +15,8 @@ class Workout(db.Model):
 
 class WorkoutExercise(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    workout_id =db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=False)
-    exercise_id = db.Column(db.Integer, db.ForeignKey("exercises.id"), nullable=False)
+    workout_id =db.Column(db.Integer, db.ForeignKey("workout.id"), nullable=False)
+    exercise_id = db.Column(db.Integer, db.ForeignKey("exercise.id"), nullable=False)
     reps = db.Column(db.Integer, nullable=False)
     sets = db.Column(db.Integer, nullable=False)
     duration_seconds= db.Column(db.Integer, nullable=True)
