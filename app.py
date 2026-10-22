@@ -41,7 +41,7 @@ def create_exercise():
     exercise_details = ExerciseSchema().dump(exercise)
     return jsonify(exercise_details), 201
 
-@app.route("/exercises", methods=["DELETE"])
+@app.route("/exercises/<id>", methods=["DELETE"])
 def delete_exercise(id):
     exercise = Exercise.query.get_or_404(id)
     db.session.delete(exercise)
