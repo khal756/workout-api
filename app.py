@@ -26,5 +26,28 @@ def find_exercise(id):
     exercise_details = ExerciseSchema().dump(exercise)
     return jsonify(exercise_details)
 
+@app.route("/exercises", methods= ["POST"])
+def create_exercise():
+    data = request.get_json()
+    try:
+        validated_data = ExerciseSchema().load(data)
+    except ValidationError as err:
+        return jsonify({"errors": err.messeges}), 400
+    
+    exercise = Exercise(**validated_data)
+    db.session.add(exercise)
+    db.session.commit()
+
+    exercise_details = ExerciseSchema().dump(exercise)
+    return jsonify(exercise_details), 201
+
+@app.route("/exercises", methods=["DELETE"])
+def delete_exercise(id):
+    exercise = Exercise.query.get_or_404(id)
+    db.session.delete(exercise)
+    db.session.commit()
+    return "", 204
+
+
 if __name__ == "__main__":
     app.run(debug=True)
