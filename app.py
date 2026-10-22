@@ -20,5 +20,11 @@ def exercise_records():
     exercise_list=ExerciseSchema(many=True).dump(exercises)
     return jsonify(exercise_list)
 
+@app.route("/exercises/<int:id>", methods=["GET"])
+def find_exercise(id):
+    exercise = Exercise.query.get_or_404(id)
+    exercise_details = ExerciseSchema().dump(exercise)
+    return jsonify(exercise_details)
+
 if __name__ == "__main__":
     app.run(debug=True)
